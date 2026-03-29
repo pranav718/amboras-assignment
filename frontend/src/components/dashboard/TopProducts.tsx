@@ -31,15 +31,15 @@ const PRODUCT_NAMES: Record<string, string> = {
   prod_020: 'Gaming Headset',
 };
 
-const RANK_COLORS = ['#f59e0b', '#94a3b8', '#cd7f32']; 
+const RANK_COLORS = ['#FFFFFF', '#A3A3A3', '#6F6F6F']; 
 
 export default function TopProducts({ data, loading }: TopProductsProps) {
   if (loading) {
     return (
-      <div className="glass-card animate-in" style={{ padding: '24px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Top Products</h3>
+      <div className="dashboard-card animate-in" style={{ padding: '32px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Top Products by Revenue</h3>
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="skeleton" style={{ height: '40px', marginBottom: '8px' }} />
+          <div key={i} className="skeleton" style={{ height: '40px', marginBottom: '16px' }} />
         ))}
       </div>
     );
@@ -48,42 +48,41 @@ export default function TopProducts({ data, loading }: TopProductsProps) {
   const maxRevenue = data.length > 0 ? Math.max(...data.map((p) => p.revenue)) : 1;
 
   return (
-    <div className="glass-card animate-in animate-delay-3" style={{ padding: '24px' }}>
-      <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>
+    <div className="dashboard-card animate-in animate-delay-3" style={{ padding: '32px' }}>
+      <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>
          Top Products by Revenue
       </h3>
 
       {data.length === 0 ? (
-        <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '14px' }}>
+        <div style={{ padding: '40px 0', textAlign: 'center', color: '#6F6F6F', fontSize: '14px' }}>
           No product data for this period
         </div>
       ) : (
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
           {data.map((product, index) => (
             <div
               key={product.product_id}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '10px 12px',
-                borderRadius: '10px',
+                gap: '16px',
+                padding: '12px 16px',
+                borderRadius: '8px',
                 transition: 'background 0.2s',
                 cursor: 'default',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--bg-card-hover)';
+                e.currentTarget.style.background = '#111111';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent';
               }}
             >
-              {}
               <span
                 style={{
                   fontSize: '13px',
-                  fontWeight: 700,
-                  color: index < 3 ? RANK_COLORS[index] : 'var(--text-muted)',
+                  fontWeight: 600,
+                  color: index < 3 ? RANK_COLORS[index] : '#333333',
                   width: '24px',
                   textAlign: 'center',
                 }}
@@ -91,13 +90,13 @@ export default function TopProducts({ data, loading }: TopProductsProps) {
                 #{index + 1}
               </span>
 
-              {}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '4px' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px' }}>
                   <span
                     style={{
-                      fontSize: '13px',
+                      fontSize: '14px',
                       fontWeight: 500,
+                      color: '#FFFFFF',
                       overflow: 'hidden',
                       textOverflow: 'ellipsis',
                       whiteSpace: 'nowrap',
@@ -105,17 +104,16 @@ export default function TopProducts({ data, loading }: TopProductsProps) {
                   >
                     {PRODUCT_NAMES[product.product_id] || product.product_id}
                   </span>
-                  <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--accent-green)', flexShrink: 0 }}>
+                  <span style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF', flexShrink: 0 }}>
                     ${product.revenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}
                   </span>
                 </div>
 
-                {}
                 <div
                   style={{
-                    height: '4px',
-                    background: 'var(--bg-secondary)',
-                    borderRadius: '2px',
+                    height: '2px',
+                    background: '#F3F4F6',
+                    borderRadius: '1px',
                     overflow: 'hidden',
                   }}
                 >
@@ -123,20 +121,19 @@ export default function TopProducts({ data, loading }: TopProductsProps) {
                     style={{
                       height: '100%',
                       width: `${(product.revenue / maxRevenue) * 100}%`,
-                      background: 'var(--gradient-primary)',
-                      borderRadius: '2px',
+                      background: '#FFFFFF',
+                      borderRadius: '1px',
                       transition: 'width 0.5s ease',
                     }}
                   />
                 </div>
               </div>
 
-              {}
               <span
                 style={{
-                  fontSize: '11px',
-                  color: 'var(--text-muted)',
-                  minWidth: '50px',
+                  fontSize: '12px',
+                  color: '#A3A3A3',
+                  minWidth: '60px',
                   textAlign: 'right',
                 }}
               >

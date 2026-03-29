@@ -16,11 +16,11 @@ interface EventBreakdownProps {
 }
 
 const EVENT_COLORS: Record<string, string> = {
-  page_views: '#06b6d4',
-  add_to_cart: '#818cf8',
-  remove_from_cart: '#ef4444',
-  checkout_started: '#f59e0b',
-  purchases: '#10b981',
+  page_views: '#333333',
+  add_to_cart: '#6F6F6F',
+  remove_from_cart: '#DC2626',
+  checkout_started: '#A3A3A3',
+  purchases: '#FFFFFF',
 };
 
 const EVENT_LABELS: Record<string, string> = {
@@ -37,15 +37,15 @@ const CustomTooltip = ({ active, payload }: any) => {
   return (
     <div
       style={{
-        background: 'var(--bg-secondary)',
-        border: '1px solid var(--glass-border)',
-        borderRadius: '10px',
-        padding: '10px 14px',
-        boxShadow: 'var(--glass-shadow)',
+        background: '#000000',
+        border: '1px solid #333333',
+        borderRadius: '4px',
+        padding: '12px 16px',
+        boxShadow: 'var(--shadow-video)',
       }}
     >
-      <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{EVENT_LABELS[name] || name}</p>
-      <p style={{ fontSize: '16px', fontWeight: 700 }}>{value.toLocaleString()}</p>
+      <p style={{ fontSize: '13px', color: '#A3A3A3', marginBottom: '4px' }}>{EVENT_LABELS[name] || name}</p>
+      <p style={{ fontSize: '16px', fontWeight: 600, color: '#FFFFFF' }}>{value.toLocaleString()}</p>
     </div>
   );
 };
@@ -53,8 +53,8 @@ const CustomTooltip = ({ active, payload }: any) => {
 export default function EventTypeBreakdown({ data, loading }: EventBreakdownProps) {
   if (loading || !data) {
     return (
-      <div className="glass-card animate-in" style={{ padding: '24px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Event Breakdown</h3>
+      <div className="dashboard-card animate-in" style={{ padding: '32px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Event Breakdown</h3>
         <div className="skeleton" style={{ height: '280px' }} />
       </div>
     );
@@ -69,8 +69,8 @@ export default function EventTypeBreakdown({ data, loading }: EventBreakdownProp
   ].filter((d) => d.value > 0); 
 
   return (
-    <div className="glass-card animate-in animate-delay-3" style={{ padding: '24px' }}>
-      <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Event Breakdown</h3>
+    <div className="dashboard-card animate-in animate-delay-3" style={{ padding: '32px' }}>
+      <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Event Breakdown</h3>
 
       <ResponsiveContainer width="100%" height={200}>
         <PieChart>
@@ -78,37 +78,37 @@ export default function EventTypeBreakdown({ data, loading }: EventBreakdownProp
             data={chartData}
             cx="50%"
             cy="50%"
-            innerRadius={55}
-            outerRadius={85}
-            paddingAngle={3}
+            innerRadius={60}
+            outerRadius={90}
+            paddingAngle={2}
             dataKey="value"
+            stroke="none"
           >
             {chartData.map((entry) => (
-              <Cell key={entry.name} fill={EVENT_COLORS[entry.name] || '#6366f1'} />
+              <Cell key={entry.name} fill={EVENT_COLORS[entry.name] || '#FFFFFF'} />
             ))}
           </Pie>
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
       </ResponsiveContainer>
 
-      {}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginTop: '16px' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginTop: '24px' }}>
         {chartData.map((item) => (
           <div key={item.name} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
               <div
                 style={{
-                  width: '10px',
-                  height: '10px',
-                  borderRadius: '3px',
+                  width: '12px',
+                  height: '12px',
+                  borderRadius: '2px',
                   background: EVENT_COLORS[item.name],
                 }}
               />
-              <span style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>
+              <span style={{ fontSize: '14px', color: '#A3A3A3', fontWeight: 500 }}>
                 {EVENT_LABELS[item.name]}
               </span>
             </div>
-            <span style={{ fontSize: '12px', fontWeight: 600 }}>
+            <span style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF' }}>
               {item.value.toLocaleString()}
             </span>
           </div>

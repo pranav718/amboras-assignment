@@ -43,8 +43,8 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 export default function RevenueChart({ data, loading }: RevenueChartProps) {
   if (loading) {
     return (
-      <div className="glass-card animate-in" style={{ padding: '24px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Revenue Trend</h3>
+      <div className="dashboard-card animate-in" style={{ padding: '32px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Revenue Trend</h3>
         <div className="skeleton" style={{ height: '280px' }} />
       </div>
     );
@@ -56,8 +56,8 @@ export default function RevenueChart({ data, loading }: RevenueChartProps) {
   }));
 
   return (
-    <div className="glass-card animate-in animate-delay-2" style={{ padding: '24px' }}>
-      <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Revenue Trend</h3>
+    <div className="dashboard-card animate-in animate-delay-2" style={{ padding: '32px' }}>
+      <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Revenue Trend</h3>
 
       {formattedData.length === 0 ? (
         <div
@@ -66,7 +66,7 @@ export default function RevenueChart({ data, loading }: RevenueChartProps) {
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
-            color: 'var(--text-muted)',
+            color: '#6F6F6F',
             fontSize: '14px',
           }}
         >
@@ -75,32 +75,28 @@ export default function RevenueChart({ data, loading }: RevenueChartProps) {
       ) : (
         <ResponsiveContainer width="100%" height={280}>
           <BarChart data={formattedData} margin={{ top: 5, right: 5, left: -10, bottom: 5 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="rgba(100,116,139,0.15)" />
+            <CartesianGrid strokeDasharray="3 3" stroke="#F3F4F6" vertical={false} />
             <XAxis
               dataKey="dateLabel"
-              tick={{ fill: '#64748b', fontSize: 11 }}
-              axisLine={{ stroke: 'rgba(100,116,139,0.2)' }}
+              tick={{ fill: '#A3A3A3', fontSize: 11, fontFamily: 'var(--font-inter)' }}
+              axisLine={{ stroke: '#333333' }}
               tickLine={false}
+              dy={10}
             />
             <YAxis
-              tick={{ fill: '#64748b', fontSize: 11 }}
+              tick={{ fill: '#A3A3A3', fontSize: 11, fontFamily: 'var(--font-inter)' }}
               axisLine={false}
               tickLine={false}
               tickFormatter={(v) => `$${v >= 1000 ? `${(v / 1000).toFixed(0)}k` : v}`}
+              dx={-10}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(99,102,241,0.08)' }} />
+            <Tooltip content={<CustomTooltip />} cursor={{ fill: '#111111' }} />
             <Bar
               dataKey="revenue"
-              fill="url(#revenueGradient)"
-              radius={[6, 6, 0, 0]}
+              fill="#FFFFFF"
+              radius={[4, 4, 0, 0]}
               maxBarSize={40}
             />
-            <defs>
-              <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="#10b981" stopOpacity={0.9} />
-                <stop offset="100%" stopColor="#059669" stopOpacity={0.6} />
-              </linearGradient>
-            </defs>
           </BarChart>
         </ResponsiveContainer>
       )}

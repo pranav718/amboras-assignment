@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import api from '@/lib/api';
 
-
 export default function LoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('demo@store1.com');
@@ -33,70 +32,51 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="auth-container">
-      <div className="auth-card glass-card" style={{ padding: '40px' }}>
-        {}
-        <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div
-            style={{
-              width: '48px',
-              height: '48px',
-              background: 'var(--gradient-primary)',
-              borderRadius: '12px',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              margin: '0 auto 16px',
-              fontSize: '24px',
-            }}
-          >
-            
-          </div>
-          <h1 style={{ fontSize: '24px', fontWeight: 700, marginBottom: '8px' }}>
-            Welcome back
+    <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: '#000000' }}>
+      <div style={{ width: '100%', maxWidth: '400px', padding: '40px' }} className="animate-in">
+        <div style={{ marginBottom: '32px' }}>
+          <h1 className="font-display" style={{ fontSize: '32px', color: '#FFFFFF', marginBottom: '8px' }}>
+            Sign In
           </h1>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>
-            Sign in to your analytics dashboard
+          <p style={{ color: '#A3A3A3', fontSize: '14px' }}>
+            Access your analytics dashboard.
           </p>
         </div>
 
-        {}
         {error && (
           <div
             style={{
               padding: '12px 16px',
-              background: 'rgba(239, 68, 68, 0.1)',
-              border: '1px solid rgba(239, 68, 68, 0.3)',
-              borderRadius: '10px',
-              color: '#ef4444',
+              backgroundColor: '#111111',
+              borderLeft: '4px solid #FFFFFF',
+              color: '#FFFFFF',
               fontSize: '13px',
-              marginBottom: '20px',
+              marginBottom: '24px',
             }}
           >
             {error}
           </div>
         )}
 
-        {}
-        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
           <div>
             <label
               style={{
                 display: 'block',
                 fontSize: '13px',
                 fontWeight: 500,
-                color: 'var(--text-secondary)',
-                marginBottom: '6px',
+                color: '#A3A3A3',
+                marginBottom: '8px',
               }}
             >
-              Email
+              Email Address
             </label>
             <input
               type="email"
               className="auth-input"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="your@email.com"
+              placeholder="name@company.com"
               required
             />
           </div>
@@ -107,8 +87,8 @@ export default function LoginPage() {
                 display: 'block',
                 fontSize: '13px',
                 fontWeight: 500,
-                color: 'var(--text-secondary)',
-                marginBottom: '6px',
+                color: '#A3A3A3',
+                marginBottom: '8px',
               }}
             >
               Password
@@ -123,42 +103,41 @@ export default function LoginPage() {
             />
           </div>
 
-          <button type="submit" className="auth-btn" disabled={loading} style={{ marginTop: '8px' }}>
-            {loading ? 'Signing in...' : 'Sign In'}
+          <button type="submit" className="auth-btn" disabled={loading} style={{ marginTop: '12px' }}>
+            {loading ? 'Authenticating...' : 'Sign In'}
           </button>
         </form>
 
-        {}
         <div
           style={{
-            marginTop: '24px',
-            padding: '12px',
-            background: 'rgba(99, 102, 241, 0.08)',
-            borderRadius: '10px',
+            marginTop: '32px',
+            padding: '16px',
+            border: '1px solid #333333',
+            borderRadius: '4px',
             fontSize: '12px',
-            color: 'var(--text-secondary)',
+            color: '#A3A3A3',
+            textAlign: 'center',
           }}
         >
-          <strong style={{ color: 'var(--accent-primary)' }}>Demo credentials:</strong>
+          <strong style={{ color: '#FFFFFF' }}>Demo Access:</strong>
           <br />
           Store 1: demo@store1.com / password123
           <br />
           Store 2: demo@store2.com / password123
         </div>
 
-        {}
         <p
           style={{
             textAlign: 'center',
-            marginTop: '24px',
-            fontSize: '13px',
-            color: 'var(--text-secondary)',
+            marginTop: '32px',
+            fontSize: '14px',
+            color: '#A3A3A3',
           }}
         >
-          Don&apos;t have an account?{' '}
+          No account?{' '}
           <Link
             href="/register"
-            style={{ color: 'var(--accent-primary)', textDecoration: 'none', fontWeight: 500 }}
+            style={{ color: '#FFFFFF', textDecoration: 'none', fontWeight: 500, borderBottom: '1px solid #FFFFFF' }}
           >
             Create one
           </Link>

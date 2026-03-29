@@ -16,15 +16,6 @@ const EVENT_LABELS: Record<string, string> = {
   purchase: 'Purchase',
 };
 
-const EVENT_ICONS: Record<string, string> = {
-  page_view: '',
-  add_to_cart: '',
-  remove_from_cart: '',
-  checkout_started: '',
-  purchase: '',
-};
-
-
 function timeAgo(timestamp: string): string {
   const now = new Date();
   const then = new Date(timestamp);
@@ -43,27 +34,27 @@ function timeAgo(timestamp: string): string {
 export default function RecentActivity({ data, loading }: RecentActivityProps) {
   if (loading) {
     return (
-      <div className="glass-card animate-in" style={{ padding: '24px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: 600, marginBottom: '20px' }}>Recent Activity</h3>
+      <div className="dashboard-card animate-in" style={{ padding: '32px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF', marginBottom: '20px' }}>Activity Feed</h3>
         {Array.from({ length: 5 }).map((_, i) => (
-          <div key={i} className="skeleton" style={{ height: '48px', marginBottom: '8px' }} />
+          <div key={i} className="skeleton" style={{ height: '48px', marginBottom: '16px' }} />
         ))}
       </div>
     );
   }
 
   return (
-    <div className="glass-card animate-in animate-delay-4" style={{ padding: '24px' }}>
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <h3 style={{ fontSize: '15px', fontWeight: 600 }}> Recent Activity</h3>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
-          <div className="pulse-dot" />
-          <span style={{ fontSize: '11px', color: 'var(--accent-green)' }}>Auto-updating</span>
+    <div className="dashboard-card animate-in animate-delay-4" style={{ padding: '32px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '24px' }}>
+        <h3 style={{ fontSize: '15px', fontWeight: 600, color: '#FFFFFF' }}> Activity Feed</h3>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#FFFFFF' }} />
+          <span style={{ fontSize: '12px', color: '#FFFFFF', fontWeight: 500 }}>Live Sync</span>
         </div>
       </div>
 
       {data.length === 0 ? (
-        <div style={{ padding: '40px 0', textAlign: 'center', color: 'var(--text-muted)', fontSize: '14px' }}>
+        <div style={{ padding: '40px 0', textAlign: 'center', color: '#6F6F6F', fontSize: '14px' }}>
           No recent events
         </div>
       ) : (
@@ -71,7 +62,7 @@ export default function RecentActivity({ data, loading }: RecentActivityProps) {
           style={{
             display: 'flex',
             flexDirection: 'column',
-            gap: '4px',
+            gap: '8px',
             maxHeight: '400px',
             overflowY: 'auto',
           }}
@@ -82,44 +73,37 @@ export default function RecentActivity({ data, loading }: RecentActivityProps) {
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '12px',
-                padding: '10px 12px',
-                borderRadius: '10px',
+                gap: '16px',
+                padding: '12px 16px',
+                borderRadius: '8px',
                 transition: 'background 0.2s',
               }}
               onMouseEnter={(e) => {
-                e.currentTarget.style.background = 'var(--bg-card-hover)';
+                e.currentTarget.style.background = '#111111';
               }}
               onMouseLeave={(e) => {
                 e.currentTarget.style.background = 'transparent';
               }}
             >
-              {}
-              <span style={{ fontSize: '16px' }}>
-                {EVENT_ICONS[event.event_type] || ''}
-              </span>
-
-              {}
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '2px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '4px' }}>
                   <span className={`badge badge-${event.event_type}`}>
                     {EVENT_LABELS[event.event_type] || event.event_type}
                   </span>
                   {event.event_type === 'purchase' && event.data?.amount && (
-                    <span style={{ fontSize: '13px', fontWeight: 700, color: 'var(--accent-green)' }}>
+                    <span style={{ fontSize: '14px', fontWeight: 600, color: '#FFFFFF' }}>
                       +${event.data.amount.toFixed(2)}
                     </span>
                   )}
                 </div>
                 {event.data?.product_name && (
-                  <p style={{ fontSize: '12px', color: 'var(--text-muted)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                  <p style={{ fontSize: '13px', color: '#A3A3A3', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
                     {event.data.product_name}
                   </p>
                 )}
               </div>
 
-              {}
-              <span style={{ fontSize: '11px', color: 'var(--text-muted)', flexShrink: 0 }}>
+              <span style={{ fontSize: '12px', color: '#6F6F6F', flexShrink: 0 }}>
                 {timeAgo(event.timestamp)}
               </span>
             </div>

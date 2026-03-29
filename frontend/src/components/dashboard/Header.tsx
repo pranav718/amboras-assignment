@@ -3,7 +3,6 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
-
 interface HeaderProps {
   period: string;
   onPeriodChange: (period: string) => void;
@@ -33,35 +32,23 @@ export default function Header({ period, onPeriodChange }: HeaderProps) {
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        padding: '20px 24px',
-        borderBottom: '1px solid var(--glass-border)',
+        padding: '24px 48px',
+        borderBottom: '1px solid #333333',
         flexWrap: 'wrap',
-        gap: '16px',
+        gap: '24px',
+        background: '#000000',
       }}
     >
-      {}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-        <div
-          style={{
-            width: '36px',
-            height: '36px',
-            background: 'var(--gradient-primary)',
-            borderRadius: '10px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '18px',
-          }}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+        <h1 
+          style={{ fontSize: '20px', color: '#FFFFFF', fontWeight: 600, letterSpacing: '-0.5px' }}
         >
-          
-        </div>
-        <div>
-          <h1 style={{ fontSize: '18px', fontWeight: 700 }}>Analytics</h1>
-          <p style={{ fontSize: '12px', color: 'var(--text-secondary)' }}>{storeName}</p>
-        </div>
+          Analytics
+        </h1>
+        <div style={{ width: '1px', height: '16px', background: '#333333' }} />
+        <p style={{ fontSize: '13px', color: '#A3A3A3', fontWeight: 500 }}>{storeName}</p>
       </div>
 
-      {}
       <div className="period-selector">
         {[
           { key: 'today', label: 'Today' },
@@ -78,37 +65,35 @@ export default function Header({ period, onPeriodChange }: HeaderProps) {
         ))}
       </div>
 
-      {}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-          <div className="pulse-dot" />
-          <span style={{ fontSize: '12px', color: 'var(--accent-green)', fontWeight: 500 }}>
-            Live
+          <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#FFFFFF' }} />
+          <span style={{ fontSize: '13px', color: '#FFFFFF', fontWeight: 500 }}>
+            Syncing
           </span>
         </div>
         <button
           onClick={handleLogout}
           style={{
-            padding: '8px 16px',
-            background: 'transparent',
-            border: '1px solid var(--glass-border)',
-            borderRadius: '8px',
-            color: 'var(--text-secondary)',
+            padding: '8px 24px',
+            background: '#FFFFFF',
+            border: 'none',
+            borderRadius: '9999px',
+            color: '#000000',
             fontSize: '13px',
+            fontWeight: 500,
             cursor: 'pointer',
-            fontFamily: 'Inter, sans-serif',
-            transition: 'all 0.2s',
+            fontFamily: 'var(--font-inter), sans-serif',
+            transition: 'transform 0.2s',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.borderColor = 'var(--accent-red)';
-            e.currentTarget.style.color = 'var(--accent-red)';
+            e.currentTarget.style.transform = 'scale(1.03)';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.borderColor = 'var(--glass-border)';
-            e.currentTarget.style.color = 'var(--text-secondary)';
+            e.currentTarget.style.transform = 'scale(1)';
           }}
         >
-          Sign Out
+          Depart
         </button>
       </div>
     </header>

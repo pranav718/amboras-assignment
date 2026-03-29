@@ -47,48 +47,36 @@ export default function DashboardPage() {
 
   return (
     <div style={{ minHeight: '100vh' }}>
-      {}
       <Header period={period} onPeriodChange={setPeriod} />
 
-      {}
       <div className="dashboard-grid">
-        {}
         <div className="metrics-row">
           <MetricCard
             title="Total Revenue"
             value={overviewLoading ? '...' : formatCurrency(overview?.revenue.total || 0)}
             subtitle={overview ? `Today: ${formatCurrency(overview.revenue.today)}` : undefined}
-            icon=""
-            iconClass="metric-icon-revenue"
             delay={1}
           />
           <MetricCard
             title="Total Events"
             value={overviewLoading ? '...' : (overview?.events.total || 0).toLocaleString()}
             subtitle={`${overview?.events.page_views.toLocaleString() || 0} page views`}
-            icon=""
-            iconClass="metric-icon-events"
             delay={2}
           />
           <MetricCard
             title="Conversion Rate"
             value={overviewLoading ? '...' : `${overview?.conversion_rate || 0}%`}
             subtitle="Purchases / Page Views"
-            icon=""
-            iconClass="metric-icon-conversion"
             delay={3}
           />
           <MetricCard
             title="Total Purchases"
             value={overviewLoading ? '...' : (overview?.events.purchases || 0).toLocaleString()}
             subtitle={overview ? `${overview.events.checkout_started} checkouts` : undefined}
-            icon=""
-            iconClass="metric-icon-purchases"
             delay={4}
           />
         </div>
 
-        {}
         <div className="charts-row">
           <RevenueChart
             data={dailyRevenue || []}
@@ -100,7 +88,6 @@ export default function DashboardPage() {
           />
         </div>
 
-        {}
         <div className="bottom-row">
           <TopProducts
             data={topProducts || []}

@@ -1,9 +1,8 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository, DataSource } from 'typeorm';
+import { Repository, DataSource, QueryRunner } from 'typeorm';
 import { Event } from '../entities/event.entity';
-import { DailyMetric } from '../entities/daily-metric.entity';
-import { ProductMetric } from '../entities/product-metric.entity';
+
 import { CreateEventDto } from './dto/create-event.dto';
 
 @Injectable()
@@ -44,7 +43,7 @@ export class EventsService {
     } catch (error) {
       await queryRunner.rollbackTransaction();
 
-      if (error.code === '23505') {
+      if ((error as { code?: string }).code === '23505') {
         this.logger.warn(`Duplicate event: ${dto.event_id}`);
         return this.eventRepo.findOne({
           where: { event_id: dto.event_id },
@@ -65,7 +64,7 @@ export class EventsService {
         ingested++;
       } catch (error) {
         this.logger.warn(
-          `Failed to ingest event ${event.event_id}: ${error.message}`,
+          `Failed to ingest event ${event.event_id}: ${error instanceof Error ? error.message : String(error)}`,
         );
       }
     }
@@ -73,7 +72,7 @@ export class EventsService {
   }
 
   private async upsertDailyMetrics(
-    queryRunner: any,
+    queryRunner: QueryRunner,
     dto: CreateEventDto,
     eventDate: string,
   ) {
@@ -88,7 +87,8 @@ export class EventsService {
     const column = columnMap[dto.event_type];
     if (!column) return;
 
-    const amount = dto.event_type === 'purchase' ? dto.data?.amount || 0 : 0;
+    const amount =
+      dto.event_type === 'purchase' ? (dto.data?.amount as number) || 0 : 0;
 
     await queryRunner.query(
       `INSERT INTO daily_metrics (store_id, date, ${column}, total_revenue)
@@ -102,12 +102,12 @@ export class EventsService {
   }
 
   private async upsertProductMetrics(
-    queryRunner: any,
+    queryRunner: QueryRunner,
     dto: CreateEventDto,
     eventDate: string,
   ) {
-    const amount = dto.data?.amount || 0;
-    const productId = dto.data?.product_id;
+    const amount = (dto.data?.amount as number) || 0;
+    const productId = dto.data?.product_id as string | undefined;
 
     await queryRunner.query(
       `INSERT INTO product_metrics (store_id, product_id, date, revenue, quantity_sold)
