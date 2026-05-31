@@ -1,6 +1,6 @@
 # Store Analytics Dashboard
 
-Project Video Walkthrough: https://youtu.be/dC1azVo4sfA
+Project Video Walkthrough: 
 
 A real-time analytics dashboard for Amboras's multi-tenant eCommerce platform. Store owners can track revenue, conversion rates, top products, and customer activity, with everything loading in under 2 seconds.
 
